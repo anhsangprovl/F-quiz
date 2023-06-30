@@ -1,10 +1,8 @@
-import React from "react"
-import styles from "./answerInput.module.css"
-import answerCheck from "../../../assets/answerCheck.svg"
-
+import React from "react";
+import styles from "./answerInput.module.css";
+import answerCheck from "../../../assets/answerCheck.svg";
 
 function AnswerInput({ value, onChange, onClick, isAnswerCorrect, svg, name }) {
-
   return (
     <>
       <img className={styles["answer-icon"]} src={svg} alt="" />
@@ -17,7 +15,7 @@ function AnswerInput({ value, onChange, onClick, isAnswerCorrect, svg, name }) {
         />
       </div>
     </>
-  )
+  );
 }
 
-export default AnswerInput
+export default AnswerInput;
