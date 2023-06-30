@@ -34,7 +34,7 @@ body {
   justify-content: flex-end;
   align-items: center;
   gap: 2rem;
-  margin: 0 2rem;
+  margin: 0 6rem;
 }
 
 .nav__list-logo {
@@ -43,7 +43,7 @@ body {
   cursor: pointer;
 }
 
-.logo-img{
+.logo-img {
   width: 50px;
 }
 
@@ -57,6 +57,12 @@ body {
   align-items: center;
 }
 
+.nav__list-item,
+.linkStyle,
+.item__drop {
+  color: black;
+}
+
 .nav__list-item::after {
   content: "";
   width: 0;
@@ -65,7 +71,7 @@ body {
   position: absolute;
   left: 1rem;
   bottom: 0.8rem;
-  background-color: #f06292;
+  background-color: #2e1ea2;
   transition: width 200ms ease-in;
 }
 
@@ -78,6 +84,10 @@ body {
 .nav__list-item:focus ul {
   opacity: 1;
   visibility: visible;
+}
+
+.nav__list-item:hover {
+  color: #2e1ea2;
 }
 
 .nav__list-item-drop {
@@ -109,5 +119,6 @@ a {
 }
 .nav__list-item-drop li:hover,
 .nav__list-item-drop li:focus {
-  background-color: #fce4ec;
+  background-color: #2d1ea277;
+  color: #f6f4ff;
 }
