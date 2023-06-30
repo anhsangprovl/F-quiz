@@ -14,6 +14,7 @@ import JoinGame from "./components/Game/JoinGame/JoinGame"
 import { io } from "socket.io-client"
 import { useDispatch } from "react-redux"
 import { createSocket } from "./actions/socket"
+import './components/Auth/auth.css'
 
 function App() {
   const user = JSON.parse(localStorage.getItem("profile"))

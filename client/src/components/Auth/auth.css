@@ -1,0 +1,24 @@
+/* .login_page{
+   background: url('/src/assets/1000_F_210618714_u6VAPB1UEYSisqMzQAJomasWDM2Ae4uO.jpg') no-repeat center center fixed ;
+   background-size: cover;
+   margin-left: 0;
+} */
+
+.fullscreen-container {
+   display: flex;
+   flex-direction: column;
+   min-height: 100vh;
+   background: url('/src/assets/1000_F_210618714_u6VAPB1UEYSisqMzQAJomasWDM2Ae4uO.jpg') no-repeat center center fixed;
+   background-size: cover;
+  
+}
+
+
+
+.content {
+   flex-grow: 1;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   
+}
