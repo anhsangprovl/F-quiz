@@ -1,15 +1,23 @@
-import React, { useEffect, useState } from "react"
-import MyQuiz from "./MyQuiz/MyQuiz"
-import { useDispatch, useSelector } from "react-redux"
-import { getTeacherQuizes, createQuiz } from "../../actions/quiz"
-import styles from "./myQuizes.module.css"
-import { useHistory } from "react-router-dom"
+import React, { useEffect, useState } from "react";
+import MyQuiz from "./MyQuiz/MyQuiz";
+import Button from "react-bootstrap/Button";
+import { useDispatch, useSelector } from "react-redux";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSquarePlus } from "@fortawesome/free-solid-svg-icons";
+import { faTextHeight } from "@fortawesome/free-solid-svg-icons";
+import { faComment } from "@fortawesome/free-solid-svg-icons";
+import { faPeopleGroup } from "@fortawesome/free-solid-svg-icons";
+import { faLock } from "@fortawesome/free-solid-svg-icons";
+import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
+import { getTeacherQuizes, createQuiz } from "../../actions/quiz";
+import styles from "./myQuizes.module.css";
+import { useHistory } from "react-router-dom";
 
 function MyQuizes() {
-  const user = JSON.parse(localStorage.getItem("profile"))
-  const dispatch = useDispatch()
-  const history = useHistory()
-  const isLanguageEnglish = useSelector((state) => state.language.isEnglish)
+  const user = JSON.parse(localStorage.getItem("profile"));
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const isLanguageEnglish = useSelector((state) => state.language.isEnglish);
   const [quizData, setQuizData] = useState({
     name: "",
     creatorName: `${user?.result.firstName} ${user?.result.lastName}`,
@@ -19,30 +27,34 @@ function MyQuizes() {
     isPublic: true,
     tags: [],
     questionList: [],
-  })
+  });
 
-  const [isQuizPublic, setIsQuizPublic] = useState(true)
+  const [isQuizPublic, setIsQuizPublic] = useState(true);
 
   useEffect(() => {
-    dispatch(getTeacherQuizes(user.result._id))
-  }, [dispatch])
+    dispatch(getTeacherQuizes(user.result._id));
+  }, [dispatch]);
 
-  const { quizes } = useSelector((state) => state.quiz)
+  const { quizes } = useSelector((state) => state.quiz);
 
   const handleQuizSubmit = () => {
-    dispatch(createQuiz(quizData, history))
-  }
+    dispatch(createQuiz(quizData, history));
+  };
 
   const handleQuizChange = (e) => {
-    setQuizData({ ...quizData, [e.target.name]: e.target.value })
-  }
+    setQuizData({ ...quizData, [e.target.name]: e.target.value });
+  };
 
   return (
     <div className={styles["quizes-list"]}>
       <div className={styles["quiz-settings"]}>
-        <h2>{isLanguageEnglish ? "Create new quiz" : "Stwórz nowy quiz"}</h2>
+        <h2>
+          <FontAwesomeIcon icon={faSquarePlus} />
+          {isLanguageEnglish ? "Create new quiz" : "Stwórz nowy quiz"}
+        </h2>
         <div className={styles["quiz-form"]}>
           <div className={styles["option-label"]}>
+            <FontAwesomeIcon icon={faTextHeight} width={20} height={20} />
             <label>{isLanguageEnglish ? "Title" : "Nazwa"}</label>
           </div>
           <input
@@ -52,6 +64,7 @@ function MyQuizes() {
             onChange={handleQuizChange}
           />
           <div className={styles["option-label"]}>
+            <FontAwesomeIcon icon={faComment} width={20} height={20} />
             <label>{isLanguageEnglish ? "Description" : "Opis"}</label>
           </div>
           <input
@@ -61,46 +74,44 @@ function MyQuizes() {
             onChange={handleQuizChange}
           />
           <div className={styles["option-buttons"]}>
-            <button
+            <Button
+              variant="primary"
               onClick={() => {
-                setIsQuizPublic(true)
-                setQuizData({ ...quizData, isPublic: true })
+                setIsQuizPublic(true);
+                setQuizData({ ...quizData, isPublic: true });
               }}
               className={styles["option-button"]}
-              style={{
-                backgroundColor: isQuizPublic ? "rgb(19, 104, 206)" : "inherit",
-                color: isQuizPublic ? "white" : "rgb(110, 110, 110)",
-              }}
             >
+              <FontAwesomeIcon icon={faPeopleGroup} width={20} height={20} />
               {isLanguageEnglish ? "Public" : "Publiczny"}
-            </button>
-            <button
+            </Button>
+            <Button
+              variant="danger"
               onClick={() => {
-                setIsQuizPublic(false)
-                setQuizData({ ...quizData, isPublic: false })
+                setIsQuizPublic(false);
+                setQuizData({ ...quizData, isPublic: false });
               }}
               className={styles["option-button"]}
-              style={{
-                backgroundColor: isQuizPublic ? "inherit" : "rgb(19, 104, 206)",
-                color: isQuizPublic ? "rgb(110, 110, 110)" : "white",
-              }}
             >
+              <FontAwesomeIcon icon={faLock} width={20} height={20} />
               {isLanguageEnglish ? "Private" : "Prywatny"}
-            </button>
+            </Button>
           </div>
-          <button
+          <Button
+            variant="success"
             onClick={handleQuizSubmit}
             className={styles["submit-button"]}
           >
-            {isLanguageEnglish ? "Create new quiz" : "Stwórz nowy quiz"}
-          </button>
+            <FontAwesomeIcon icon={faPaperPlane} width={20} height={20} />
+            {isLanguageEnglish ? "Create " : "Stwórz nowy quiz"}
+          </Button>
         </div>
       </div>
       {quizes.map((quiz) => (
         <MyQuiz key={quiz._id} quiz={quiz} />
       ))}
     </div>
-  )
+  );
 }
 
-export default MyQuizes
+export default MyQuizes;
