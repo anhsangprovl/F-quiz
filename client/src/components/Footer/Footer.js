@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./footer.module.css";
+import "./footer.css";
 import FacebookIcon from "@material-ui/icons/Facebook";
 import InstagramIcon from "@material-ui/icons/Instagram";
 import TwitterIcon from "@material-ui/icons/Twitter";
@@ -9,10 +9,10 @@ import { useSelector } from "react-redux"
 function Footer() {
   const isLanguageEnglish = useSelector((state) => state.language.isEnglish)
   return (
-    <footer className={styles.footer}>
-      <div className={styles["footer-container"]}>
-        <div className={styles["footer-row"]}>
-          <div className={styles["footer-column"]}>
+    <footer className="footer">
+      <div className="footer-container">
+        <div className="footer-row">
+          <div className="footer-column">
             <h4>{isLanguageEnglish ? "About" : "O nas"}</h4>
             <ul>
               <li>
@@ -29,7 +29,7 @@ function Footer() {
               </li>
             </ul>
           </div>
-          <div className={styles["footer-column"]}>
+          <div className="footer-column">
             <h4>{isLanguageEnglish ? "Application" : "Aplikacja"}</h4>
             <ul>
               <li>
@@ -43,7 +43,7 @@ function Footer() {
               </li>
             </ul>
           </div>
-          <div className={styles["footer-column"]}>
+          <div className="footer-column">
             <h4>{isLanguageEnglish ? "Terms and conditions" : "Regulamin"}</h4>
             <ul>
               <li>
@@ -60,9 +60,9 @@ function Footer() {
               </li>
             </ul>
           </div>
-          <div className={styles["footer-column"]}>
+          <div className="footer-column">
             <h4>{isLanguageEnglish ? "Follow us" : "Śledź nas"}</h4>
-            <div className={styles["footer-social-links"]}>
+            <div className="footer-social-links">
               <a href="/">
                 <FacebookIcon />
               </a>

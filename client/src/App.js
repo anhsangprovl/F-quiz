@@ -3,7 +3,7 @@ import Navbar from "./components/Navbar/Navbar"
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom"
 import Home from "./components/Home/Home"
 import Auth from "./components/Auth/Auth"
-import Footer from "./components/Footer/Footer"
+// import Footer from "./components/Footer/Footer"
 import QuizCreator from "./components/QuizCreator/QuizCreator"
 import Quizes from "./components/Quizes/Quizes"
 import MyQuizes from "./components/MyQuizes/MyQuizes"
@@ -41,7 +41,7 @@ function App() {
         <Route path="/games/player/:id" exact component={PlayerScreen} />
         <Route path="/myquizes" exact component={MyQuizes} />
       </Switch>
-      <Footer />
+      {/* <Footer /> */}
     </BrowserRouter>
   )
 }

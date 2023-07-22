@@ -1,0 +1,150 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+.navbar {
+  /* width: 100%; */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 80px;
+  padding: 0 100px;
+  background-color: #CDEFFF;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 999;
+}
+
+.navbar-left {
+  /* width: 50%; */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* padding: 0 30px; */
+}
+
+.navbar-logo {
+  font-size: 24px;
+  font-weight: bold;
+  margin-right: 50%;
+}
+
+.navbar-menu {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  list-style: none;
+  margin-right: 10px;
+  padding: 0;
+  height: 100%;
+}
+
+.navbar-menu-item {
+  margin: 0 10px;
+  padding: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'Roboto';
+  font-weight: 300;
+}
+
+.navbar-menu-item:hover {
+  /* background-color: #e9ecef; */
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.navbar-register {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-register-btn {
+  border: 1px solid black;
+  border-radius: 4px;
+  background-color: #CDEFFF;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 'Roboto';
+  font-weight: 600;
+}
+
+.navbar-register-btn:hover {
+  background-color: #75caf1;
+}
+
+.navbar-toggle {
+  display: none;
+  cursor: pointer;
+}
+
+.navbar-toggle.active {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}
+
+.navbar-toggle.active + .navbar-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 70%;
+  height: 100%;
+  background-color: #f8f9fa;
+  box-shadow: 2px 0px 10px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+.navbar-toggle.active + .navbar-menu .navbar-menu-item {
+  margin: 20px 0;
+  padding: 10px;
+  border-radius: 0;
+  transition: all 0.3s ease;
+}
+
+.navbar-toggle-icon {
+  display: block;
+  width: 22px;
+  height: 2px;
+  margin: 4px 0;
+  background-color: #333;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+.navbar-toggle.active .navbar-toggle-icon:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.navbar-toggle.active .navbar-toggle-icon:nth-child(2) {
+  opacity: 0;
+}
+
+.navbar-toggle.active .navbar-toggle-icon:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
+
+@media screen and (max-width: 768px) {
+  .navbar-menu {
+    display: none;
+  }
+
+  .navbar-toggle {
+    display: block;
+  }
+}
