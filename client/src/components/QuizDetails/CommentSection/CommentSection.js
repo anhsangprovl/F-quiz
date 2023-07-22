@@ -26,50 +26,49 @@ const CommentSection = ({ quiz }) => {
   }
 
   return (
-    <div>
+    <div className={classes.commentContainer}>
       <div className={classes.commentsOuterContainer}>
         <div className={classes.commentsInnerContainer}>
           <Typography gutterBottom variant="h6">
-            {isLanguageEnglish ? "Comments" : "Komentarze"}
+            {isLanguageEnglish ? 'Comments' : 'Komentarze'}
           </Typography>
           {comments?.map((comment, index) => (
             <Typography key={index} gutterBottom variant="subtitle1">
-              <strong>{comment.split(": ")[0]}</strong>
-              {comment.split(":")[1]}
+              <strong>{comment.split(': ')[0]}</strong>
+              {comment.split(':')[1]}
             </Typography>
           ))}
           <div ref={commentsRef} />
         </div>
         {user?.result?.userName && (
-          <div style={{ width: "70%" }}>
+          <div style={{ width: '70%' }}>
             <Typography gutterBottom variant="h6">
-              {isLanguageEnglish ? "Write a comment" : "Napisz komentarz"}
+              {isLanguageEnglish ? 'Write a comment' : 'Napisz komentarz'}
             </Typography>
             <TextField
               fullWidth
               rows={4}
               variant="outlined"
-              label={isLanguageEnglish ? "Comment" : "Komentarz"}
+              label={isLanguageEnglish ? 'Comment' : 'Komentarz'}
               multiline
               value={comment}
               onChange={(e) => setComment(e.target.value)}
             />
             <br />
             <Button
-              style={{ marginTop: "10px" }}
+              style={{ marginTop: '10px' }}
               fullWidth
               disabled={!comment.length}
               color="primary"
               variant="contained"
-              onClick={handleComment}
-            >
-              {isLanguageEnglish ? "Comment" : "Dodaj"}
+              onClick={handleComment}>
+              {isLanguageEnglish ? 'Comment' : 'Dodaj'}
             </Button>
           </div>
         )}
       </div>
     </div>
-  )
+  );
 }
 
 export default CommentSection

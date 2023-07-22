@@ -22,7 +22,9 @@ mongoose.connect(process.env.DATABASE_URL);
 const db = mongoose.connection;
 db.on('error', (error) => console.error(error));
 db.once('open', () => console.log('Connected to database'));
-
+var bodyParser = require('body-parser');
+app.use(bodyParser.json({ limit: '50mb' }));
+app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 app.use(express.json({ limit: '5mb' }));
 app.use(cors());
 app.use(authenticateToken);

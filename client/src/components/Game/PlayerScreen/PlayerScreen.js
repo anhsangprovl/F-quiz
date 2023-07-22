@@ -67,7 +67,7 @@ function PlayerScreen() {
       }
       time--;
     }, 1000);
-  };
+  }; 
 
   const startQuestionCountdown = (seconds) => {
     let time = seconds;
