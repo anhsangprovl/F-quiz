@@ -12,6 +12,14 @@ function Input({
   autoFocus,
   type,
   handleShowPassword,
+  error,
+  errors,
+  errorMail, 
+  setError,
+  setErrors,
+  setErrorMail,
+  helperText,
+  
 }) {
   return (
     <Grid item xs={12} sm={half ? 6 : 12}>
@@ -24,13 +32,15 @@ function Input({
         label={label}
         autoFocus={autoFocus}
         type={type}
+       error={Boolean(error || errors || errorMail)}
+        helperText={error ||errorMail} 
         InputProps={
           name === "password"
             ? {
                 endAdornment: (
                   <InputAdornment position="end">
                     <IconButton onClick={handleShowPassword}>
-                      {type === "password" ? <Visibility /> : <VisibilityOff />}
+                    {type === "password" ? <Visibility /> : <VisibilityOff />}
                     </IconButton>
                   </InputAdornment>
                 ),

@@ -23,6 +23,10 @@ const initialState = {
   mail: "",
   password: "",
   confirmPassword: "",
+   errors: {
+    userName: "",
+    password: "",
+  },
 };
 
 function Auth() {
@@ -32,19 +36,51 @@ function Auth() {
   const [formData, setFormData] = useState(initialState);
   const history = useHistory();
   const dispatch = useDispatch();
+  const [error, setError] = useState("");
+  const [errors, setErrors] = useState({
+    userName: "",
+    password: "",
+  });
+  const [errorMail, setErrorMail] = useState({
+    mail: "",
+  });
 
   const isLanguageEnglish = useSelector((state) => state.language.isEnglish)
 
   const handleSubmit = (e) => {
-    e.preventDefault()
+    e.preventDefault();
+    setErrors({
+      userName: "",
+      password: "",
+    });
+    setError("");
+    setErrorMail("");
+
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
+
+    
     if (isSignup) {
-      dispatch(register(formData, history))
+      dispatch(register(formData, history, setError))
+      if (!formData.mail.match(emailRegex)) {
+        setErrorMail("Invalid email format");
+        console.log(error);
+        
+      } 
     } else {
-      dispatch(login(formData, history))
+      dispatch(login(formData, history, setError))
+        .then((response) => {
+          if (response.error) { 
+            setError(response.error);
+          }
+        })
+        .catch((error) => { 
+          setError(error.message);
+        })
     }
   };
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    setFormData({ ...formData, [e.target.name]: e.target.value }); 
+    
   };
   const handleShowPassword = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
@@ -65,10 +101,10 @@ function Auth() {
               {isSignup
                 ? isLanguageEnglish
                   ? "Sign up"
-                  : "Zarejestruj się"
+                  : "Đăng Ký"
                 : isLanguageEnglish
                 ? "Sign in"
-                : "Zaloguj się"}
+                : "Đăng Nhập"}
             </Typography>
             <form className={classes.form} onSubmit={handleSubmit}>
               <Grid container spacing={2}>
@@ -76,14 +112,14 @@ function Auth() {
                   <>
                     <Input
                       name="firstName"
-                      label={isLanguageEnglish ? "First Name" : "Imię"}
+                      label={isLanguageEnglish ? "First Name" : "Họ"}
                       handleChange={handleChange}
                       autoFocus
                       half
                     />
                     <Input
                       name="lastName"
-                      label={isLanguageEnglish ? "Last Name" : "Nazwisko"}
+                      label={isLanguageEnglish ? "Last Name" : "Tên"}
                       handleChange={handleChange}
                       half
                     />
@@ -94,29 +130,38 @@ function Auth() {
                     /> */}
                     <Input
                       name="mail"
-                      label={isLanguageEnglish ? "Email address" : "Email"}
+                      label={isLanguageEnglish ? "Email address" : " Địa chỉ Email"}
                       handleChange={handleChange}
                       type="email"
+                      error={errorMail.mail}
+                      setError={setErrorMail}
+                      helperText={errorMail.mail}
                     />
                   </>
                 )}
 
                 <Input
                   name="userName"
-                  label={isLanguageEnglish ? "User Name" : "Nazwa użytkownika"}
+                  label={isLanguageEnglish ? "User Name" : "Tên Tài Khoản"}
                   handleChange={handleChange}
+                  error={error || errors.userName}
+                  setError={setError || setErrors }
+                  helperText={errors.userName}
                 />
                 <Input
                   name="password"
-                  label={isLanguageEnglish ? "Password" : "Hasło"}
+                  label={isLanguageEnglish ? "Password" : "Mật Khẩu"}
                   handleChange={handleChange}
                   type={showPassword ? "text" : "password"}
                   handleShowPassword={handleShowPassword}
+                   error={error || errors.password}
+                  setError={setError || setErrors }
+                  helperText={errors.password}
                 />
                 {isSignup && (
                   <Input
                     name="confirmPassword"
-                    label={isLanguageEnglish ? "Repeat password" : "Powtórz hasło"}
+                    label={isLanguageEnglish ? "Repeat password" : "Xác Nhận Mật Khẩu"}
                     handleChange={handleChange}
                     type="password"
                   />
