@@ -40,9 +40,13 @@ function Auth() {
   const [errors, setErrors] = useState({
     userName: "",
     password: "",
+    
   });
   const [errorMail, setErrorMail] = useState({
-    mail: "",
+    mail: ""
+  });
+  const [errorConfirmPassword, setErrorConfirmPassword] = useState({
+    confirmPassword: ""
   });
 
   const isLanguageEnglish = useSelector((state) => state.language.isEnglish)
@@ -54,18 +58,32 @@ function Auth() {
       password: "",
     });
     setError("");
-    setErrorMail("");
+    setErrorMail({
+      mail: ""
+    });
+    setErrorConfirmPassword({
+      confirmPassword: ""
+    })
 
-    const emailRegex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
+    const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+    const passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d][A-Za-z\d!@#$%^&*()_+]{7,19}$/;
 
     
     if (isSignup) {
-      dispatch(register(formData, history, setError))
       if (!formData.mail.match(emailRegex)) {
-        setErrorMail("Invalid email format");
-        console.log(error);
-        
+       setErrorMail({ mail: "Invalid email format" }); 
       } 
+      if (!formData.password.match(passwordRegex)) {
+        setErrors({ password: "Password must be 7-19 characters and contain at least one letter, one number and a special character" });
+      }
+      else if (!formData.confirmPassword.match(formData.password)) {
+        setErrorConfirmPassword({confirmPassword : "Not match with Password"})
+      }
+      else {
+        dispatch(register(formData, history, setError))
+
+       }
+   
     } else {
       dispatch(login(formData, history, setError))
         .then((response) => {
@@ -74,11 +92,15 @@ function Auth() {
           }
         })
         .catch((error) => { 
-          setError(error.message);
+          setError("Invalid Account. Please enter again!");
         })
     }
   };
   const handleChange = (e) => {
+     setErrors({
+      userName: "",
+      password: "",
+    });
     setFormData({ ...formData, [e.target.name]: e.target.value }); 
     
   };
@@ -154,7 +176,7 @@ function Auth() {
                   handleChange={handleChange}
                   type={showPassword ? "text" : "password"}
                   handleShowPassword={handleShowPassword}
-                   error={error || errors.password}
+                  error={error || errors.password}
                   setError={setError || setErrors }
                   helperText={errors.password}
                 />
@@ -164,6 +186,9 @@ function Auth() {
                     label={isLanguageEnglish ? "Repeat password" : "Xác Nhận Mật Khẩu"}
                     handleChange={handleChange}
                     type="password"
+                    error={errorConfirmPassword.confirmPassword}
+                    setError={setErrorConfirmPassword}
+                    helperText={errorConfirmPassword.confirmPassword}
                   />
                 )}
               </Grid>
