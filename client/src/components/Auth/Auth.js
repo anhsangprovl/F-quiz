@@ -81,8 +81,16 @@ function Auth() {
       }
       else {
         dispatch(register(formData, history, setError))
+        .then((response) => {
+          if (response.error) { 
+            setError(response.error);
+          }
+        })
+          .catch((error) => {
+            setError({userName: "Account Exists. Please enter again!"});
+        })
 
-       }
+      }
    
     } else {
       dispatch(login(formData, history, setError))
