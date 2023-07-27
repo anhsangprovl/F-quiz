@@ -36,6 +36,12 @@ function Auth() {
   const [formData, setFormData] = useState(initialState);
   const history = useHistory();
   const dispatch = useDispatch();
+   const [error, setError] = useState("");
+  const [errors, setErrors] = useState({
+    userName: "",
+    password: "",
+    
+  });
   const [errorMail, setErrorMail] = useState({
     mail: "",
   });
@@ -47,10 +53,54 @@ function Auth() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+     setErrors({
+      userName: "",
+      password: "",
+    });
+    setError("");
+    setErrorMail({
+      mail: ""
+    });
+    setErrorConfirmPassword({
+      confirmPassword: ""
+    })
+
+    const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+    const passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d][A-Za-z\d!@#$%^&*()_+]{7,19}$/;
+
     if (isSignup) {
-      dispatch(register(formData, history));
+      if (!formData.mail.match(emailRegex)) {
+       setErrorMail({ mail: "Invalid email format" }); 
+      } 
+      if (!formData.password.match(passwordRegex)) {
+        setErrors({ password: "Password must be 7-19 characters and contain at least one letter, one number and a special character" });
+      }
+      else if (!formData.confirmPassword.match(formData.password)) {
+        setErrorConfirmPassword({confirmPassword : "Not match with Password"})
+      }
+      else {
+        dispatch(register(formData, history, setError))
+        .then((response) => {
+          if (response.error) { 
+            setError(response.error);
+          }
+        })
+          .catch((error) => {
+            setError({userName: "Account Exists. Please enter again!"});
+        })
+
+      }
+      
     } else {
-      dispatch(login(formData, history));
+     dispatch(login(formData, history, setError))
+        .then((response) => {
+          if (response.error) { 
+            setError(response.error);
+          }
+        })
+        .catch((error) => { 
+          setError("Invalid Account. Please enter again!");
+        })
     }
   };
   const handleChange = (e) => {
@@ -86,14 +136,14 @@ function Auth() {
                   <>
                     <Input
                       name="firstName"
-                      label={isLanguageEnglish ? "First Name" : "Imię"}
+                     label={isLanguageEnglish ? "First Name" : "Họ"}
                       handleChange={handleChange}
                       autoFocus
                       half
                     />
                     <Input
                       name="lastName"
-                      label={isLanguageEnglish ? "Last Name" : "Nazwisko"}
+                      label={isLanguageEnglish ? "Last Name" : "Tên"}
                       handleChange={handleChange}
                       half
                     />
@@ -104,7 +154,7 @@ function Auth() {
                     />
                     <Input
                       name="mail"
-                      label={isLanguageEnglish ? "Email address" : "Email"}
+                      label={isLanguageEnglish ? "Email address" : " Địa chỉ Email"}
                       handleChange={handleChange}
                       type="email"
                       error={errorMail.mail}
@@ -114,17 +164,23 @@ function Auth() {
                   </>
                 )}
 
-                <Input
+                  <Input
                   name="userName"
-                  label={isLanguageEnglish ? "User Name" : "Nazwa użytkownika"}
+                  label={isLanguageEnglish ? "User Name" : "Tên Tài Khoản"}
                   handleChange={handleChange}
+                  error={error || errors.userName}
+                  setError={setError || setErrors }
+                  helperText={errors.userName}
                 />
                 <Input
                   name="password"
-                  label={isLanguageEnglish ? "Password" : "Hasło"}
+                  label={isLanguageEnglish ? "Password" : "Mật Khẩu"}
                   handleChange={handleChange}
                   type={showPassword ? "text" : "password"}
                   handleShowPassword={handleShowPassword}
+                  error={error || errors.password}
+                  setError={setError || setErrors }
+                  helperText={errors.password}
                 />
                 {isSignup && (
                   <Input
@@ -150,10 +206,10 @@ function Auth() {
                 {isSignup
                   ? isLanguageEnglish
                     ? "Sign up"
-                    : "Zarejestruj się"
+                    : "Đăng Ký"
                   : isLanguageEnglish
                   ? "Sign in"
-                  : "Zaloguj się"}
+                  : "Đăng Nhập"}
               </Button>
               <Grid container justify="flex-end">
                 <Grid item>
