@@ -13,11 +13,7 @@ function Input({
   type,
   handleShowPassword,
   error,
-  errors,
-  errorMail, 
   setError,
-  setErrors,
-  setErrorMail,
   helperText,
   
 }) {
@@ -32,8 +28,8 @@ function Input({
         label={label}
         autoFocus={autoFocus}
         type={type}
-       error={Boolean(error || errors || errorMail)}
-        helperText={error ||errorMail} 
+        error={Boolean(error)}
+        helperText={error} 
         InputProps={
           name === "password"
             ? {

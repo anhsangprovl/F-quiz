@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import {
   Avatar,
   Button,
@@ -6,26 +6,26 @@ import {
   Grid,
   Typography,
   Container,
-} from "@material-ui/core";
-import useStyles from "./styles";
-import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
-import { useHistory } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import Input from "./Input";
-import { login, register } from "../../actions/auth";
-import "./auth.css";
+} from '@material-ui/core';
+import useStyles from './styles';
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import { useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import Input from './Input';
+import { login, register } from '../../actions/auth';
+import './auth.css';
 
 const initialState = {
-  userType: "",
-  firstName: "",
-  lastName: "",
-  userName: "",
-  mail: "",
-  password: "",
-  confirmPassword: "",
-   errors: {
-    userName: "",
-    password: "",
+  userType: '',
+  firstName: '',
+  lastName: '',
+  userName: '',
+  mail: '',
+  password: '',
+  confirmPassword: '',
+  errors: {
+    userName: '',
+    password: '',
   },
 };
 
@@ -36,51 +36,19 @@ function Auth() {
   const [formData, setFormData] = useState(initialState);
   const history = useHistory();
   const dispatch = useDispatch();
-  const [error, setError] = useState("");
-  const [errors, setErrors] = useState({
-    userName: "",
-    password: "",
-  });
-  const [errorMail, setErrorMail] = useState({
-    mail: "",
-  });
 
-  const isLanguageEnglish = useSelector((state) => state.language.isEnglish)
+  const isLanguageEnglish = useSelector((state) => state.language.isEnglish);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setErrors({
-      userName: "",
-      password: "",
-    });
-    setError("");
-    setErrorMail("");
-
-    const emailRegex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
-
-    
     if (isSignup) {
-      dispatch(register(formData, history, setError))
-      if (!formData.mail.match(emailRegex)) {
-        setErrorMail("Invalid email format");
-        console.log(error);
-        
-      } 
+      dispatch(register(formData, history));
     } else {
-      dispatch(login(formData, history, setError))
-        .then((response) => {
-          if (response.error) { 
-            setError(response.error);
-          }
-        })
-        .catch((error) => { 
-          setError(error.message);
-        })
+      dispatch(login(formData, history));
     }
   };
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value }); 
-    
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
   const handleShowPassword = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
@@ -101,10 +69,10 @@ function Auth() {
               {isSignup
                 ? isLanguageEnglish
                   ? 'Sign up'
-                  : 'Đăng Ký'
+                  : 'Zarejestruj się'
                 : isLanguageEnglish
                 ? 'Sign in'
-                : 'Đăng Nhập'}
+                : 'Zaloguj się'}
             </Typography>
             <form className={classes.form} onSubmit={handleSubmit}>
               <Grid container spacing={2}>
@@ -112,14 +80,14 @@ function Auth() {
                   <>
                     <Input
                       name="firstName"
-                      label={isLanguageEnglish ? 'First Name' : 'Họ'}
+                      label={isLanguageEnglish ? 'First Name' : 'Imię'}
                       handleChange={handleChange}
                       autoFocus
                       half
                     />
                     <Input
                       name="lastName"
-                      label={isLanguageEnglish ? 'Last Name' : 'Tên'}
+                      label={isLanguageEnglish ? 'Last Name' : 'Nazwisko'}
                       handleChange={handleChange}
                       half
                     />
@@ -130,9 +98,7 @@ function Auth() {
                     />
                     <Input
                       name="mail"
-                      label={
-                        isLanguageEnglish ? 'Email address' : ' Địa chỉ Email'
-                      }
+                      label={isLanguageEnglish ? 'Email address' : 'Email'}
                       handleChange={handleChange}
                       type="email"
                       error={errorMail.mail}
@@ -144,32 +110,27 @@ function Auth() {
 
                 <Input
                   name="userName"
-                  label={isLanguageEnglish ? 'User Name' : 'Tên Tài Khoản'}
+                  label={isLanguageEnglish ? 'User Name' : 'Nazwa użytkownika'}
                   handleChange={handleChange}
-                  error={error || errors.userName}
-                  setError={setError || setErrors}
-                  helperText={errors.userName}
                 />
                 <Input
                   name="password"
-                  label={isLanguageEnglish ? 'Password' : 'Mật Khẩu'}
+                  label={isLanguageEnglish ? 'Password' : 'Hasło'}
                   handleChange={handleChange}
                   type={showPassword ? 'text' : 'password'}
                   handleShowPassword={handleShowPassword}
-                  error={error || errors.password}
-                  setError={setError || setErrors}
-                  helperText={errors.password}
                 />
                 {isSignup && (
                   <Input
                     name="confirmPassword"
                     label={
-                      isLanguageEnglish
-                        ? 'Repeat password'
-                        : 'Xác Nhận Mật Khẩu'
+                      isLanguageEnglish ? 'Repeat password' : 'Powtórz hasło'
                     }
                     handleChange={handleChange}
                     type="password"
+                    error={errorConfirmPassword.confirmPassword}
+                    setError={setErrorConfirmPassword}
+                    helperText={errorConfirmPassword.confirmPassword}
                   />
                 )}
               </Grid>
