@@ -60,7 +60,7 @@ function MyQuiz({ quiz }) {
         ></div>
         <p className={styles["quiz-question-number"]}>
           <FontAwesomeIcon icon={faCircleQuestion} width={20} height={20} />
-          {isLanguageEnglish ? "Questions:" : "Pytania:"}{" "}
+          {isLanguageEnglish ? "Questions:" : "Câu hỏi:"}{" "}
           {quiz.numberOfQuestions}
         </p>
       </div>
@@ -73,7 +73,7 @@ function MyQuiz({ quiz }) {
           <div className={styles["card-buttons"]}>
             <Button variant="success" onClick={addGame}>
               <FontAwesomeIcon icon={faPlay} />
-              {isLanguageEnglish ? "Start a game" : "Rozpocznij grę"}
+              {isLanguageEnglish ? "Start a game" : "Bắt đầu game"}
             </Button>
             <button onClick={openQuizPage}>
               <FontAwesomeIcon icon={faCommentDots} width={20} height={20} />
@@ -83,7 +83,7 @@ function MyQuiz({ quiz }) {
               onClick={() => dispatch(deleteQuiz(quiz._id))}
             >
               <FontAwesomeIcon icon={faTrash} width={20} height={20} />
-              {isLanguageEnglish ? "Delete" : "Usuń"}
+              {isLanguageEnglish ? "Delete" : "Xóa"}
             </Button>
           </div>
         </div>

@@ -50,12 +50,12 @@ function MyQuizes() {
       <div className={styles["quiz-settings"]}>
         <h2>
           <FontAwesomeIcon icon={faSquarePlus} />
-          {isLanguageEnglish ? "Create new quiz" : "Stwórz nowy quiz"}
+          {isLanguageEnglish ? "Create new quiz" : "Tạo bài kiểm tra mới"}
         </h2>
         <div className={styles["quiz-form"]}>
           <div className={styles["option-label"]}>
             <FontAwesomeIcon icon={faTextHeight} width={20} height={20} />
-            <label>{isLanguageEnglish ? "Title" : "Nazwa"}</label>
+            <label>{isLanguageEnglish ? "Title" : "Tiêu đề"}</label>
           </div>
           <input
             value={quizData.name}
@@ -65,7 +65,7 @@ function MyQuizes() {
           />
           <div className={styles["option-label"]}>
             <FontAwesomeIcon icon={faComment} width={20} height={20} />
-            <label>{isLanguageEnglish ? "Description" : "Opis"}</label>
+            <label>{isLanguageEnglish ? "Description" : "Mô tả"}</label>
           </div>
           <input
             value={quizData.description}
@@ -83,7 +83,7 @@ function MyQuizes() {
               className={styles["option-button"]}
             >
               <FontAwesomeIcon icon={faPeopleGroup} width={20} height={20} />
-              {isLanguageEnglish ? "Public" : "Publiczny"}
+              {isLanguageEnglish ? "Public" : "Công cộng"}
             </Button>
             <Button
               variant="danger"
@@ -94,7 +94,7 @@ function MyQuizes() {
               className={styles["option-button"]}
             >
               <FontAwesomeIcon icon={faLock} width={20} height={20} />
-              {isLanguageEnglish ? "Private" : "Prywatny"}
+              {isLanguageEnglish ? "Private" : "Riêng tư"}
             </Button>
           </div>
           <Button
@@ -103,7 +103,7 @@ function MyQuizes() {
             className={styles["submit-button"]}
           >
             <FontAwesomeIcon icon={faPaperPlane} width={20} height={20} />
-            {isLanguageEnglish ? "Create " : "Stwórz nowy quiz"}
+            {isLanguageEnglish ? "Create " : "Tạo"}
           </Button>
         </div>
       </div>

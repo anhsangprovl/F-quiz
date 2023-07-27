@@ -1,8 +1,8 @@
-import React from 'react'
-import styles from "./answer.module.css"
-import answerCheck from "../../../assets/answerCheck.svg"
+import React from "react";
+import styles from "./answer.module.css";
+import answerCheck from "../../../assets/answerCheck.svg";
 
-function Answer({icon, body, showText, isAnswerClicked, onClick}) {
+function Answer({ icon, body, showText, isAnswerClicked, onClick }) {
   return (
     <div className={styles["answer-field"]}>
       <img className={styles["answer-icon"]} src={icon} alt="" />
@@ -18,7 +18,7 @@ function Answer({icon, body, showText, isAnswerClicked, onClick}) {
         </div>
       )}
     </div>
-  )
+  );
 }
 
-export default Answer
+export default Answer;

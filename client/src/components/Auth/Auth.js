@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   Avatar,
   Button,
@@ -6,26 +6,26 @@ import {
   Grid,
   Typography,
   Container,
-} from '@material-ui/core';
-import useStyles from './styles';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import { useHistory } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import Input from './Input';
-import { login, register } from '../../actions/auth';
-import './auth.css';
+} from "@material-ui/core";
+import useStyles from "./styles";
+import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+import { useHistory } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import Input from "./Input";
+import { login, register } from "../../actions/auth";
+import "./auth.css";
 
 const initialState = {
-  userType: '',
-  firstName: '',
-  lastName: '',
-  userName: '',
-  mail: '',
-  password: '',
-  confirmPassword: '',
+  userType: "",
+  firstName: "",
+  lastName: "",
+  userName: "",
+  mail: "",
+  password: "",
+  confirmPassword: "",
   errors: {
-    userName: '',
-    password: '',
+    userName: "",
+    password: "",
   },
 };
 
@@ -36,6 +36,12 @@ function Auth() {
   const [formData, setFormData] = useState(initialState);
   const history = useHistory();
   const dispatch = useDispatch();
+  const [errorMail, setErrorMail] = useState({
+    mail: "",
+  });
+  const [errorConfirmPassword, setErrorConfirmPassword] = useState({
+    confirmPassword: "",
+  });
 
   const isLanguageEnglish = useSelector((state) => state.language.isEnglish);
 
@@ -68,11 +74,11 @@ function Auth() {
             <Typography component="h1" variant="h5">
               {isSignup
                 ? isLanguageEnglish
-                  ? 'Sign up'
-                  : 'Zarejestruj się'
+                  ? "Sign up"
+                  : "Zarejestruj się"
                 : isLanguageEnglish
-                ? 'Sign in'
-                : 'Zaloguj się'}
+                ? "Sign in"
+                : "Zaloguj się"}
             </Typography>
             <form className={classes.form} onSubmit={handleSubmit}>
               <Grid container spacing={2}>
@@ -80,25 +86,25 @@ function Auth() {
                   <>
                     <Input
                       name="firstName"
-                      label={isLanguageEnglish ? 'First Name' : 'Imię'}
+                      label={isLanguageEnglish ? "First Name" : "Imię"}
                       handleChange={handleChange}
                       autoFocus
                       half
                     />
                     <Input
                       name="lastName"
-                      label={isLanguageEnglish ? 'Last Name' : 'Nazwisko'}
+                      label={isLanguageEnglish ? "Last Name" : "Nazwisko"}
                       handleChange={handleChange}
                       half
                     />
                     <Input
                       name="userType"
-                      label={isLanguageEnglish ? 'User type' : 'Rodzaj konta'}
+                      label={isLanguageEnglish ? "User type" : "Rodzaj konta"}
                       handleChange={handleChange}
                     />
                     <Input
                       name="mail"
-                      label={isLanguageEnglish ? 'Email address' : 'Email'}
+                      label={isLanguageEnglish ? "Email address" : "Email"}
                       handleChange={handleChange}
                       type="email"
                       error={errorMail.mail}
@@ -110,21 +116,21 @@ function Auth() {
 
                 <Input
                   name="userName"
-                  label={isLanguageEnglish ? 'User Name' : 'Nazwa użytkownika'}
+                  label={isLanguageEnglish ? "User Name" : "Nazwa użytkownika"}
                   handleChange={handleChange}
                 />
                 <Input
                   name="password"
-                  label={isLanguageEnglish ? 'Password' : 'Hasło'}
+                  label={isLanguageEnglish ? "Password" : "Hasło"}
                   handleChange={handleChange}
-                  type={showPassword ? 'text' : 'password'}
+                  type={showPassword ? "text" : "password"}
                   handleShowPassword={handleShowPassword}
                 />
                 {isSignup && (
                   <Input
                     name="confirmPassword"
                     label={
-                      isLanguageEnglish ? 'Repeat password' : 'Powtórz hasło'
+                      isLanguageEnglish ? "Repeat password" : "Powtórz hasło"
                     }
                     handleChange={handleChange}
                     type="password"
@@ -139,25 +145,26 @@ function Auth() {
                 fullWidth
                 variant="contained"
                 color="primary"
-                className={classes.submit}>
+                className={classes.submit}
+              >
                 {isSignup
                   ? isLanguageEnglish
-                    ? 'Sign up'
-                    : 'Zarejestruj się'
+                    ? "Sign up"
+                    : "Zarejestruj się"
                   : isLanguageEnglish
-                  ? 'Sign in'
-                  : 'Zaloguj się'}
+                  ? "Sign in"
+                  : "Zaloguj się"}
               </Button>
               <Grid container justify="flex-end">
                 <Grid item>
                   <Button onClick={switchMode}>
                     {isSignup
                       ? isLanguageEnglish
-                        ? 'Already have an account? Sign in'
-                        : 'Masz już konto? Zaloguj się'
+                        ? "Already have an account? Sign in"
+                        : "Masz już konto? Zaloguj się"
                       : isLanguageEnglish
                       ? "Don't have an account? Sign Up"
-                      : 'Nie masz konta? Zarejestruj się'}
+                      : "Nie masz konta? Zarejestruj się"}
                   </Button>
                 </Grid>
               </Grid>

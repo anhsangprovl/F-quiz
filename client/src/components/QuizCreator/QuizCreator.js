@@ -536,7 +536,7 @@ function QuizCreator() {
                     width={20}
                     height={20}
                   />
-                  {isLanguageEnglish ? "Public" : "Publiczny"}
+                  {isLanguageEnglish ? "Public" : "Công cộng"}
                 </Button>
                 <Button
                   variant="danger"
@@ -547,13 +547,13 @@ function QuizCreator() {
                   className={styles["option-button"]}
                 >
                   <FontAwesomeIcon icon={faLock} width={20} height={20} />
-                  {isLanguageEnglish ? "Private" : "Prywatny"}
+                  {isLanguageEnglish ? "Private" : "Riêng tư"}
                 </Button>
               </div>
               <div className={styles["option-label"]}>
                 <FontAwesomeIcon icon={faImage} width={20} height={20} />
                 <label>
-                  {isLanguageEnglish ? "Background Image" : "Zdjęcie w tle"}
+                  {isLanguageEnglish ? "Background Image" : "Hình nền"}
                 </label>
               </div>
               <div>
@@ -573,9 +573,7 @@ function QuizCreator() {
               <div className={styles["option-label"]}>
                 <FontAwesomeIcon icon={faTags} width={20} height={20} />
                 <label>
-                  {isLanguageEnglish
-                    ? "Tags (comma separated)"
-                    : "Tagi (oddzielaj przecinkiem)"}
+                  {isLanguageEnglish ? "Tags (comma separated)" : "Tagi "}
                 </label>
               </div>
               <input
@@ -600,7 +598,7 @@ function QuizCreator() {
                   onClick={handleQuizSubmit}
                 >
                   <FontAwesomeIcon icon={faPaperPlane} width={20} height={20} />
-                  {isLanguageEnglish ? "Submit" : "Zakończ tworzenie quizu"}
+                  {isLanguageEnglish ? "Submit" : "Nộp"}
                 </Button>
               </div>
             </Modal.Footer>
@@ -614,7 +612,7 @@ function QuizCreator() {
             <div className={styles["option-label"]}>
               <img src={questionType} alt="" />
               <label>
-                {isLanguageEnglish ? "Question type" : "Typ pytania"}
+                {isLanguageEnglish ? "Question type" : "Loại câu hỏi"}
               </label>
             </div>
 
@@ -629,19 +627,21 @@ function QuizCreator() {
               <option defaultValue disabled>
                 {isLanguageEnglish
                   ? "Select question type"
-                  : "Wybierz typ pytania"}
+                  : "Chọn loại câu hỏi"}
               </option>
 
               <option value="Quiz">Quiz</option>
               <option value="True/False">
-                {isLanguageEnglish ? "True/False" : "Prawda/Fałsz"}
+                {isLanguageEnglish ? "True/False" : "Đúng/Sai"}
               </option>
             </select>
           </div>
           <div className={styles.option}>
             <div className={styles["option-label"]}>
               <img src={timer} alt="" />
-              <label>{isLanguageEnglish ? "Time limit" : "Limit czasu"}</label>
+              <label>
+                {isLanguageEnglish ? "Time limit" : "Thời gian giới hạn"}
+              </label>
             </div>
             <select
               onChange={handleQuestionChange}
@@ -649,32 +649,34 @@ function QuizCreator() {
               value={questionData.answerTime}
             >
               <option defaultValue disabled>
-                {isLanguageEnglish ? "Set time limit" : "Ustaw limit czasu"}
+                {isLanguageEnglish
+                  ? "Set time limit"
+                  : "Đặt giới hạn thời gian"}
               </option>
               <option value={5}>
-                5 {isLanguageEnglish ? "seconds" : "sekund"}
+                5 {isLanguageEnglish ? "seconds" : "Giây"}
               </option>
               <option value={10}>
-                10 {isLanguageEnglish ? "seconds" : "sekund"}
+                10 {isLanguageEnglish ? "seconds" : "Giây"}
               </option>
               <option value={20}>
-                20 {isLanguageEnglish ? "seconds" : "sekund"}
+                20 {isLanguageEnglish ? "seconds" : "Giây"}
               </option>
               <option value={30}>
-                30 {isLanguageEnglish ? "seconds" : "sekund"}
+                30 {isLanguageEnglish ? "seconds" : "Giây"}
               </option>
               <option value={60}>
-                1 {isLanguageEnglish ? "minute" : "minuta"}
+                1 {isLanguageEnglish ? "minute" : "Giây"}
               </option>
               <option value={90}>
-                1,5 {isLanguageEnglish ? "minute" : "minuty"}
+                1,5 {isLanguageEnglish ? "minute" : "Phút"}
               </option>
             </select>
           </div>
           <div className={styles.option}>
             <div className={styles["option-label"]}>
               <img src={gamePoints} alt="" />
-              <label>{isLanguageEnglish ? "Points" : "Punkty"}</label>
+              <label>{isLanguageEnglish ? "Points" : "Điểm"}</label>
             </div>
 
             <select
@@ -683,20 +685,16 @@ function QuizCreator() {
               value={questionData.pointType}
             >
               <option defaultValue disabled>
-                {isLanguageEnglish
-                  ? "Set points type"
-                  : "Wybierz sposób przyznania punktów"}
+                {isLanguageEnglish ? "Set points type" : "Đặt loại điểm"}
               </option>
 
               <option value="Standard">Standard </option>
 
               <option value="Double">
-                {isLanguageEnglish ? "Double" : "Podwójna ilość"}
+                {isLanguageEnglish ? "Double" : "Gấp đôi"}
               </option>
               <option value="BasedOnTime">
-                {isLanguageEnglish
-                  ? "Based on Time"
-                  : "Na podstawie czasu odpowiedzi"}
+                {isLanguageEnglish ? "Based on Time" : "dựa trên thời gian"}
               </option>
             </select>
           </div>
@@ -704,7 +702,7 @@ function QuizCreator() {
             <div className={styles["option-label"]}>
               <img src={answerOptions} alt="" />
               <label>
-                {isLanguageEnglish ? "Answer options" : "Opcje odpowiedzi"}
+                {isLanguageEnglish ? "Answer options" : "tùy chọn trả lời"}
               </label>
             </div>
 
@@ -715,10 +713,10 @@ function QuizCreator() {
                   : "Wybierz opcje odpowiedzi"}
               </option>
               <option value="1">
-                {isLanguageEnglish ? "Single choice" : "Pojedynczy wybór"}
+                {isLanguageEnglish ? "Single choice" : "Đặt tùy chọn trả lời"}
               </option>
               <option value="4">
-                {isLanguageEnglish ? "Multiple choice" : "Wielokrotny wybór"}
+                {isLanguageEnglish ? "Multiple choice" : "Nhiều lựa chọn"}
               </option>
             </select>
           </div>
@@ -730,7 +728,7 @@ function QuizCreator() {
             >
               {" "}
               <FontAwesomeIcon icon={faBookmark} width={20} height={20} />
-              {isLanguageEnglish ? "Save " : "Zapisz zmiany"}
+              {isLanguageEnglish ? "Save " : "Lưu"}
             </Button>
             <Button
               variant="success"
@@ -738,7 +736,7 @@ function QuizCreator() {
               className={styles["option-button"]}
             >
               <FontAwesomeIcon icon={faTrash} width={20} height={20} />
-              {isLanguageEnglish ? "Delete" : "Usuń"}
+              {isLanguageEnglish ? "Delete" : "Xóa"}
             </Button>
           </div>
         </div>

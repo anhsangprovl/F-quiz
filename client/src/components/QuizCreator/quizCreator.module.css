@@ -222,7 +222,7 @@ body {
   flex-direction: column;
   justify-content: space-around;
   align-items: flex-start;
-  margin-bottom: 15px;
+  margin-bottom: 5px;
 }
 
 .option-label {

@@ -26,7 +26,6 @@ function PlayerScreen() {
   const [answerTime, setAnswerTime] = useState(0);
   const [questionData, setQuestionData] = useState();
   const [correctAnswerCount, setCorrectAnswerCount] = useState(1);
-
   const [answer, setAnswer] = useState({
     questionIndex: 0,
     answers: [],
@@ -38,12 +37,12 @@ function PlayerScreen() {
   }, []);
 
   useEffect(() => {
-    socket.on('host-start-preview', () => {
+    socket.on("host-start-preview", () => {
       setIsPreviewScreen(true);
       setIsResultScreen(false);
       startPreviewCountdown(5);
     });
-    socket.on('host-start-question-timer', (time, question) => {
+    socket.on("host-start-question-timer", (time, question) => {
       setQuestionData(question.answerList);
       startQuestionCountdown(time);
       setAnswer((prevstate) => ({
@@ -103,7 +102,7 @@ function PlayerScreen() {
         updatedPlayerResult.answers[answer.questionIndex - 1].points | 0,
     };
     let score = updatedPlayerResult.score;
-    socket.emit('send-answer-to-host', data, score);
+    socket.emit("send-answer-to-host", data, score);
     dispatch(getPlayerResult(playerResult._id));
   };
 
@@ -166,38 +165,38 @@ function PlayerScreen() {
   return (
     <div className={styles.page}>
       {isPreviewScreen && (
-        <div className={styles['question-preview']}>
+        <div className={styles["question-preview"]}>
           <h1>{timer}</h1>
         </div>
       )}
       {isQuestionScreen && (
-        <div className={styles['question-preview']}>
-          <div className={styles['answers-container']}>
+        <div className={styles["question-preview"]}>
+          <div className={styles["answers-container"]}>
             <Answer
               icon={triangle}
               showText={false}
-              isAnswerClicked={answer.answers.includes('a')}
-              onClick={() => checkAnswer('a')}
+              isAnswerClicked={answer.answers.includes("a")}
+              onClick={() => checkAnswer("a")}
             />
             <Answer
               icon={diamond}
               showText={false}
-              isAnswerClicked={answer.answers.includes('b')}
-              onClick={() => checkAnswer('b')}
+              isAnswerClicked={answer.answers.includes("b")}
+              onClick={() => checkAnswer("b")}
             />
             {questionData?.length > 2 && (
               <>
                 <Answer
                   icon={circle}
                   showText={false}
-                  isAnswerClicked={answer.answers.includes('c')}
-                  onClick={() => checkAnswer('c')}
+                  isAnswerClicked={answer.answers.includes("c")}
+                  onClick={() => checkAnswer("c")}
                 />
                 <Answer
                   icon={square}
                   showText={false}
-                  isAnswerClicked={answer.answers.includes('d')}
-                  onClick={() => checkAnswer('d')}
+                  isAnswerClicked={answer.answers.includes("d")}
+                  onClick={() => checkAnswer("d")}
                 />
               </>
             )}
@@ -205,27 +204,28 @@ function PlayerScreen() {
         </div>
       )}
       {isQuestionAnswered && (
-        <div className={styles['question-preview']}>
-          <h1>{isLanguageEnglish ? 'Wait for a result' : 'Czekaj na wynik'}</h1>
+        <div className={styles["question-preview"]}>
+          <h1>{isLanguageEnglish ? "Wait for a result" : "Czekaj na wynik"}</h1>
           <CircularProgress />
         </div>
       )}
       {isResultScreen && (
         <div
-          className={styles['question-preview']}
-          style={{ backgroundColor: result.points > 0 ? 'green' : 'red' }}>
-          <h1>{isLanguageEnglish ? 'Result' : 'Wynik'}</h1>
+          className={styles["question-preview"]}
+          style={{ backgroundColor: result.points > 0 ? "green" : "red" }}
+        >
+          <h1>{isLanguageEnglish ? "Result" : "Wynik"}</h1>
           <h3>
             {result.points > 0
               ? isLanguageEnglish
-                ? 'Correct'
-                : 'Dobrze'
+                ? "Correct"
+                : "Dobrze"
               : isLanguageEnglish
-              ? 'Wrong'
-              : 'Źle'}
+              ? "Wrong"
+              : "Źle"}
           </h3>
           <h3>
-            {isLanguageEnglish ? 'Points: ' : 'Punkty: '} {result.points}
+            {isLanguageEnglish ? "Points: " : "Punkty: "} {result.points}
           </h3>
         </div>
       )}

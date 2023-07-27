@@ -134,14 +134,14 @@ function HostScreen() {
   const displayCurrentLeaderBoard = (index) => {
     setIsQuestionResultScreen(false);
     setIsLeaderboardScreen(true);
-     if (index < quiz.questionList.length) {
-       setTimeout(() => {
-         socket.emit('question-preview', () => {
-           startPreviewCountdown(5, index);
-           setPlayerList([]);
-         });
-       }, 5000);
-     }
+    if (index < quiz.questionList.length) {
+      setTimeout(() => {
+        socket.emit("question-preview", () => {
+          startPreviewCountdown(5, index);
+          setPlayerList([]);
+        });
+      }, 5000);
+    }
   };
 
   const displayQuestion = (index) => {
