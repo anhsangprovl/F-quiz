@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Input from './Input';
 import { login, register } from '../../actions/auth';
 import './auth.css';
+import { FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 
 const initialState = {
   userType: '',
@@ -37,6 +38,13 @@ function Auth() {
   const history = useHistory();
   const dispatch = useDispatch();
 
+  const [errorMail, setErrorMail] = useState({
+    mail: '',
+  });
+  const [errorConfirmPassword, setErrorConfirmPassword] = useState({
+    confirmPassword: '',
+  });
+
   const isLanguageEnglish = useSelector((state) => state.language.isEnglish);
 
   const handleSubmit = (e) => {
@@ -57,6 +65,13 @@ function Auth() {
     setIsSignup((prevIsSignup) => !prevIsSignup);
     setShowPassword(false);
   };
+
+  const [userType, setUserType] = React.useState('');
+
+  const handleChangeUserType = (event) => {
+    setUserType(event.target.value);
+  };
+
   return (
     <div className="fullscreen-container">
       <div className="content">
@@ -69,10 +84,10 @@ function Auth() {
               {isSignup
                 ? isLanguageEnglish
                   ? 'Sign up'
-                  : 'Zarejestruj się'
+                  : 'Đăng kí'
                 : isLanguageEnglish
                 ? 'Sign in'
-                : 'Zaloguj się'}
+                : 'Đăng nhập'}
             </Typography>
             <form className={classes.form} onSubmit={handleSubmit}>
               <Grid container spacing={2}>
@@ -80,22 +95,31 @@ function Auth() {
                   <>
                     <Input
                       name="firstName"
-                      label={isLanguageEnglish ? 'First Name' : 'Imię'}
+                      label={'First Name'}
                       handleChange={handleChange}
                       autoFocus
                       half
                     />
                     <Input
                       name="lastName"
-                      label={isLanguageEnglish ? 'Last Name' : 'Nazwisko'}
+                      label={ 'Last Name' }
                       handleChange={handleChange}
                       half
                     />
-                    <Input
-                      name="userType"
-                      label={isLanguageEnglish ? 'User type' : 'Rodzaj konta'}
-                      handleChange={handleChange}
-                    />
+                   
+                    <FormControl fullWidth>
+                      <InputLabel id="demo-simple-select-label">User Type</InputLabel>
+                      <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        value={userType}
+                        label="Age"
+                        onChange={handleChangeUserType}
+                      >
+                        <MenuItem value={10}>Student</MenuItem>
+                        <MenuItem value={20}>Teacher</MenuItem>
+                      </Select>
+                    </FormControl>
                     <Input
                       name="mail"
                       label={isLanguageEnglish ? 'Email address' : 'Email'}
@@ -110,12 +134,12 @@ function Auth() {
 
                 <Input
                   name="userName"
-                  label={isLanguageEnglish ? 'User Name' : 'Nazwa użytkownika'}
+                  label={'User Name'}
                   handleChange={handleChange}
                 />
                 <Input
                   name="password"
-                  label={isLanguageEnglish ? 'Password' : 'Hasło'}
+                  label={'Password'}
                   handleChange={handleChange}
                   type={showPassword ? 'text' : 'password'}
                   handleShowPassword={handleShowPassword}
@@ -124,7 +148,7 @@ function Auth() {
                   <Input
                     name="confirmPassword"
                     label={
-                      isLanguageEnglish ? 'Repeat password' : 'Powtórz hasło'
+                      'Repeat password'
                     }
                     handleChange={handleChange}
                     type="password"
@@ -143,10 +167,10 @@ function Auth() {
                 {isSignup
                   ? isLanguageEnglish
                     ? 'Sign up'
-                    : 'Zarejestruj się'
+                    : 'Đăng kí'
                   : isLanguageEnglish
                   ? 'Sign in'
-                  : 'Zaloguj się'}
+                  : 'Đăng nhập'}
               </Button>
               <Grid container justify="flex-end">
                 <Grid item>
@@ -154,10 +178,10 @@ function Auth() {
                     {isSignup
                       ? isLanguageEnglish
                         ? 'Already have an account? Sign in'
-                        : 'Masz już konto? Zaloguj się'
+                        : 'Đã có tài khoản? Đăng nhập.'
                       : isLanguageEnglish
                       ? "Don't have an account? Sign Up"
-                      : 'Nie masz konta? Zarejestruj się'}
+                      : 'Chưa có tài khoản? Đăng kí.'}
                   </Button>
                 </Grid>
               </Grid>
