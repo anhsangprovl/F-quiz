@@ -4,6 +4,9 @@ const io = require('socket.io')(3001, {
   cors: {
     origin: 'http://localhost:3000',
   },
+  pingTimeout: 180000,
+  pingInterval: 25000,
+  maxHttpBufferSize: 1e8,
 });
 
 let game

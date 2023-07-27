@@ -9,7 +9,7 @@ const app = express();
 const {
   authenticateToken,
   regenerateAccessToken,
-} = require("./middleware/auth");
+} = require('./middleware/auth');
 const authRouter = require('./routes/auth');
 const userRouter = require('./routes/user');
 const quizRouter = require('./routes/quiz');
@@ -23,9 +23,9 @@ const db = mongoose.connection;
 db.on('error', (error) => console.error(error));
 db.once('open', () => console.log('Connected to database'));
 var bodyParser = require('body-parser');
-app.use(bodyParser.json({ limit: '50mb' }));
-app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
-app.use(express.json({ limit: '5mb' }));
+app.use(bodyParser.json({ limit: '100mb' }));
+app.use(bodyParser.urlencoded({ limit: '100mb', extended: true }));
+app.use(express.json({ limit: '20mb' }));
 app.use(cors());
 app.use(authenticateToken);
 // app.use(regenerateAccessToken);

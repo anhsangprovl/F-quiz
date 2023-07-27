@@ -17,6 +17,8 @@ import { faUniversalAccess } from "@fortawesome/free-solid-svg-icons";
 import { faLock } from "@fortawesome/free-solid-svg-icons";
 import { faClipboardQuestion } from "@fortawesome/free-solid-svg-icons";
 import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
+import Form from "react-bootstrap/Form";
 import QuestionListItem from "./QuestionListItem/QuestionListItem";
 import AnswerInput from "./AnswerInput/AnswerInput";
 import triangle from "../../assets/triangle.svg";
@@ -39,7 +41,10 @@ function QuizCreator() {
   const history = useHistory();
   const dispatch = useDispatch();
   const { id } = useParams();
+  const [show, setShow] = useState(false);
 
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
   const [quizData, setQuizData] = useState({
     name: "",
     creatorName: `${user?.result.firstName} ${user?.result.lastName}`,
@@ -144,7 +149,7 @@ function QuizCreator() {
 
   const handleQuestionSubmit = () => {
     if (questionData.question === "") {
-      alert("Wpisz treść pytania");
+      alert("Success");
     } else if (!validateAnswerFields()) {
       alert("Wpisz treść odpowiedzi");
     } else if (!validateCorrectAnswer()) {
@@ -292,10 +297,10 @@ function QuizCreator() {
           <Button
             variant="primary"
             className={styles["quiz-info-button"]}
-            onClick={showQuizOptions}
+            onClick={handleShow}
           >
-            <FontAwesomeIcon icon={faGear} width={20} height={20} />
-            {isLanguageEnglish ? "Settings" : "Ustawienia"}
+            <FontAwesomeIcon icon={faGear} />
+            {isLanguageEnglish ? "" : "Ustawienia"}
           </Button>
         </div>
         <div className={styles["question-list-container"]}>
@@ -459,121 +464,147 @@ function QuizCreator() {
       </div>
       <div className={styles.options}>
         <div
-          style={{ display: isQuizOptionsVisible ? "block" : "none" }}
+          style={{ display: show ? "block" : "none" }}
           className={styles["question-options"]}
         >
-          <h1>
-            <FontAwesomeIcon icon={faClipboardQuestion} />
-            Quiz
-          </h1>
-          <div className={styles["option-label"]}>
-            <FontAwesomeIcon icon={faTextHeight} width={20} height={20} />
-            <label>{isLanguageEnglish ? "Title" : "Nazwa"}</label>
-          </div>
-          <input
-            value={quizData.name}
-            type="text"
-            name="name"
-            placeholder="Enter title"
-            onChange={handleQuizChange}
-          />
+          <Modal className="modal" show={show} onHide={handleClose}>
+            <Modal.Title closebutton>
+              <FontAwesomeIcon icon={faClipboardQuestion} />
+              Quiz
+            </Modal.Title>
 
-          <div className={styles["option-label"]}>
-            <FontAwesomeIcon icon={faComment} width={20} height={20} />
-            <label>{isLanguageEnglish ? "Description" : "Opis"}</label>
-          </div>
-          <input
-            value={quizData.description}
-            type="text"
-            name="description"
-            onChange={handleQuizChange}
-          />
-          <div className={styles["option-label"]}>
-            <label>
-              <img src={gamePoints} alt="" />
-              {isLanguageEnglish ? "Points per question" : "Punkty za pytanie"}
-            </label>
-          </div>
-          <input
-            type="number"
-            min={1}
-            value={quizData.pointsPerQuestion}
-            name="pointsPerQuestion"
-            onChange={handleQuizChange}
-          />
-          <div className={styles["option-label"]}>
-            <FontAwesomeIcon icon={faUniversalAccess} width={20} height={20} />
-            <label>{isLanguageEnglish ? "Access" : "Dostępność quizu"}</label>
-          </div>
-          <div>
-            <Button
-              variant="primary"
-              onClick={() => {
-                setIsQuizPublic(true);
-                setQuizData({ ...quizData, isPublic: true });
-              }}
-              className={styles["option-button"]}
-            >
-              <FontAwesomeIcon icon={faPeopleGroup} width={20} height={20} />
-              {isLanguageEnglish ? "Public" : "Publiczny"}
-            </Button>
-            <Button
-              variant="danger"
-              onClick={() => {
-                setIsQuizPublic(false);
-                setQuizData({ ...quizData, isPublic: false });
-              }}
-              className={styles["option-button"]}
-            >
-              <FontAwesomeIcon icon={faLock} width={20} height={20} />
-              {isLanguageEnglish ? "Private" : "Prywatny"}
-            </Button>
-          </div>
-          <div className={styles["option-label"]}>
-            <FontAwesomeIcon icon={faImage} width={20} height={20} />
-            <label>
-              {isLanguageEnglish ? "Background Image" : "Zdjęcie w tle"}
-            </label>
-          </div>
-          <div>
-            <FileBase
-              type="file"
-              multiple={false}
-              onDone={({ base64 }) => {
-                setQuizData({ ...quizData, backgroundImage: base64 });
-                setQuizImage(base64);
-              }}
-            />
-          </div>
-          {quizImage && (
-            <img className={styles["quiz-image"]} src={quizImage} alt="" />
-          )}
-          <div className={styles["option-label"]}>
-            <FontAwesomeIcon icon={faTags} width={20} height={20} />
-            <label>
-              {isLanguageEnglish
-                ? "Tags (comma separated)"
-                : "Tagi (oddzielaj przecinkiem)"}
-            </label>
-          </div>
-          <input
-            type="text"
-            value={quizData.tags}
-            name="tags"
-            onChange={(e) =>
-              setQuizData({ ...quizData, tags: e.target.value.split(",") })
-            }
-          />
-          <div>
-            <Button
-              variant="success"
-              className={styles["option-button"]}
-              onClick={handleQuizSubmit}
-            >
-              <FontAwesomeIcon icon={faPaperPlane} width={20} height={20} />
-              {isLanguageEnglish ? "Submit" : "Zakończ tworzenie quizu"}
-            </Button>
-          </div>
+            <Modal.Body>
+              <div className={styles["option-label"]}>
+                <FontAwesomeIcon icon={faTextHeight} width={20} height={20} />
+                <label>{isLanguageEnglish ? "Title" : "Nazwa"}</label>
+              </div>
+              <input
+                className="form-control"
+                value={quizData.name}
+                type="text"
+                name="name"
+                placeholder="Enter title"
+                onChange={handleQuizChange}
+              />
+
+              <div className={styles["option-label"]}>
+                <FontAwesomeIcon icon={faComment} width={20} height={20} />
+                <label>{isLanguageEnglish ? "Description" : "Opis"}</label>
+              </div>
+              <input
+                className="form-control"
+                value={quizData.description}
+                type="text"
+                placeholder="Enter des"
+                name="description"
+                onChange={handleQuizChange}
+              />
+              <div className={styles["option-label"]}>
+                <label>
+                  <img src={gamePoints} alt="" />
+                  {isLanguageEnglish
+                    ? "Points per question"
+                    : "Punkty za pytanie"}
+                </label>
+              </div>
+              <input
+                className="form-control"
+                type="number"
+                min={1}
+                value={quizData.pointsPerQuestion}
+                name="pointsPerQuestion"
+                onChange={handleQuizChange}
+              />
+              <div className={styles["option-label"]}>
+                <FontAwesomeIcon icon={faUniversalAccess} />
+                <label>
+                  {isLanguageEnglish ? "Access" : "Dostępność quizu"}
+                </label>
+              </div>
+
+              <div>
+                <Button
+                  variant="primary"
+                  onClick={() => {
+                    setIsQuizPublic(true);
+                    setQuizData({ ...quizData, isPublic: true });
+                  }}
+                  className={styles["option-button"]}
+                >
+                  <FontAwesomeIcon
+                    icon={faPeopleGroup}
+                    width={20}
+                    height={20}
+                  />
+                  {isLanguageEnglish ? "Public" : "Publiczny"}
+                </Button>
+                <Button
+                  variant="danger"
+                  onClick={() => {
+                    setIsQuizPublic(false);
+                    setQuizData({ ...quizData, isPublic: false });
+                  }}
+                  className={styles["option-button"]}
+                >
+                  <FontAwesomeIcon icon={faLock} width={20} height={20} />
+                  {isLanguageEnglish ? "Private" : "Prywatny"}
+                </Button>
+              </div>
+              <div className={styles["option-label"]}>
+                <FontAwesomeIcon icon={faImage} width={20} height={20} />
+                <label>
+                  {isLanguageEnglish ? "Background Image" : "Zdjęcie w tle"}
+                </label>
+              </div>
+              <div>
+                <FileBase
+                  className="form-control"
+                  type="file"
+                  multiple={false}
+                  onDone={({ base64 }) => {
+                    setQuizData({ ...quizData, backgroundImage: base64 });
+                    setQuizImage(base64);
+                  }}
+                />
+              </div>
+              {quizImage && (
+                <img className={styles["quiz-image"]} src={quizImage} alt="" />
+              )}
+              <div className={styles["option-label"]}>
+                <FontAwesomeIcon icon={faTags} width={20} height={20} />
+                <label>
+                  {isLanguageEnglish
+                    ? "Tags (comma separated)"
+                    : "Tagi (oddzielaj przecinkiem)"}
+                </label>
+              </div>
+              <input
+                className="form-control"
+                type="text"
+                placeholder="Enter tag"
+                value={quizData.tags}
+                name="tags"
+                onChange={(e) =>
+                  setQuizData({
+                    ...quizData,
+                    tags: e.target.value.split(","),
+                  })
+                }
+              />
+            </Modal.Body>
+            <Modal.Footer>
+              <div>
+                <Button
+                  variant="success"
+                  className={styles["option-button"]}
+                  onClick={handleQuizSubmit}
+                >
+                  <FontAwesomeIcon icon={faPaperPlane} width={20} height={20} />
+                  {isLanguageEnglish ? "Submit" : "Zakończ tworzenie quizu"}
+                </Button>
+              </div>
+            </Modal.Footer>
+          </Modal>
         </div>
         <div
           style={{ display: isQuizOptionsVisible ? "none" : "block" }}
