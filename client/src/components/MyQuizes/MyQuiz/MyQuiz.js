@@ -9,6 +9,7 @@ import {
   faCommentDots,
   faTrash,
   faTags,
+  faPenToSquare,
 } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./myQuiz.module.css";
@@ -16,7 +17,6 @@ import { deleteQuiz } from "../../../actions/quiz";
 import { createGame } from "../../../actions/game";
 import moment from "moment";
 import DeleteIcon from "@material-ui/icons/Delete";
-import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import { useHistory } from "react-router-dom";
 import { createLeaderboard } from "../../../actions/leaderboard";
 
@@ -45,29 +45,22 @@ function MyQuiz({ quiz }) {
   return (
     <div className={styles["quiz-card"]}>
       <div className={styles["image-container"]}>
-        <p className={styles["quiz-creator"]}>
-          <FontAwesomeIcon icon={faPerson} width={20} height={20} />
-          {quiz.creatorName}
-        </p>
-        <p className={styles["quiz-date"]}>
-          <FontAwesomeIcon icon={faCalendarTimes} width={20} height={20} />
+        <h3 className={styles["quiz-creator"]}>{quiz.creatorName}</h3>
+        <h3 className={styles["quiz-date"]}>
           {moment(quiz.dateCreated).fromNow()}
-        </p>
-
+        </h3>
         <div
           className={styles["quiz-image"]}
           style={{ backgroundImage: "url('" + quiz.backgroundImage + "')" }}
         ></div>
-        <p className={styles["quiz-question-number"]}>
-          <FontAwesomeIcon icon={faCircleQuestion} width={20} height={20} />
-          {isLanguageEnglish ? "Questions:" : "Câu hỏi:"}{" "}
+        <h3 className={styles["quiz-question-number"]}>
+          {isLanguageEnglish ? "Questions:" : "Pytania:"}{" "}
           {quiz.numberOfQuestions}
-        </p>
+        </h3>
       </div>
       <div className={styles["card-body"]}>
         <div>
           <h4 className={styles["quiz-tags"]}>
-            <FontAwesomeIcon icon={faTags} width={20} height={20} />
             {quiz.tags.map((tag) => `#${tag} `)}
           </h4>
           <div className={styles["card-buttons"]}>
@@ -75,20 +68,20 @@ function MyQuiz({ quiz }) {
               <FontAwesomeIcon icon={faPlay} />
               {isLanguageEnglish ? "Start a game" : "Bắt đầu game"}
             </Button>
-            <button onClick={openQuizPage}>
-              <FontAwesomeIcon icon={faCommentDots} width={20} height={20} />
-            </button>
+            <Button variant="info" onClick={openQuizPage}>
+              <FontAwesomeIcon icon={faPenToSquare} width={28} height={20} />
+            </Button>
             <Button
               variant="success"
               onClick={() => dispatch(deleteQuiz(quiz._id))}
             >
-              <FontAwesomeIcon icon={faTrash} width={20} height={20} />
-              {isLanguageEnglish ? "Delete" : "Xóa"}
+              <DeleteIcon fontSize="small" />
+              {isLanguageEnglish ? "" : ""}
             </Button>
           </div>
         </div>
-        {/* <h2 className={styles["quiz-title"]}>Title: {quiz.name}</h2>
-        <p className={styles["quiz-description"]}>Des: {quiz.description}</p> */}
+        <h2 className={styles["quiz-title"]}>{quiz.name}</h2>
+        <p className={styles["quiz-description"]}>{quiz.description}</p>
       </div>
     </div>
   );
