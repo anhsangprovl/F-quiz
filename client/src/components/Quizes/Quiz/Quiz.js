@@ -1,20 +1,20 @@
-import React from "react"
-import { useDispatch, useSelector } from "react-redux"
-import styles from "./quiz.module.css"
-import { likeQuiz } from "../../../actions/quiz"
-import { useHistory } from "react-router-dom"
-import moment from "moment"
-import ThumbUpAltIcon from "@material-ui/icons/ThumbUpAlt"
-import ThumbUpAltOutlined from "@material-ui/icons/ThumbUpAltOutlined"
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import styles from "./quiz.module.css";
+import { likeQuiz } from "../../../actions/quiz";
+import { useHistory } from "react-router-dom";
+import moment from "moment";
+import ThumbUpAltIcon from "@material-ui/icons/ThumbUpAlt";
+import ThumbUpAltOutlined from "@material-ui/icons/ThumbUpAltOutlined";
 
 function Quiz({ quiz }) {
-  const dispatch = useDispatch()
-  const history = useHistory()
-  const user = JSON.parse(localStorage.getItem("profile"))
-  const isLanguageEnglish = useSelector((state) => state.language.isEnglish)
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const user = JSON.parse(localStorage.getItem("profile"));
+  const isLanguageEnglish = useSelector((state) => state.language.isEnglish);
   const openQuizDetailsPage = (e) => {
-    history.push(`/quizes/${quiz._id}`)
-  }
+    history.push(`/quizes/${quiz._id}`);
+  };
   const Likes = () => {
     if (quiz.likesCount.length > 0) {
       return quiz.likesCount.find((like) => like === user?.result?._id) ? (
@@ -43,15 +43,15 @@ function Quiz({ quiz }) {
             ? "Likes"
             : "Polubienia"}
         </>
-      )
+      );
     }
     return (
       <>
         <ThumbUpAltOutlined fontSize="small" />
         &nbsp;Like
       </>
-    )
-  }
+    );
+  };
 
   return (
     <div className={styles["quiz-card"]}>
@@ -66,7 +66,7 @@ function Quiz({ quiz }) {
           style={{ backgroundImage: "url('" + quiz.backgroundImage + "')" }}
         ></div>
         <h3 className={styles["quiz-question-number"]}>
-          {isLanguageEnglish ? "Questions:" : "Pytania:"}{" "}
+          {isLanguageEnglish ? "Questions:" : "Câu hỏi:"}{" "}
           {quiz.numberOfQuestions}
         </h3>
       </div>
@@ -84,7 +84,7 @@ function Quiz({ quiz }) {
         </button>
       </div>
     </div>
-  )
+  );
 }
 
-export default Quiz
+export default Quiz;

@@ -4,10 +4,10 @@ import FacebookIcon from "@material-ui/icons/Facebook";
 import InstagramIcon from "@material-ui/icons/Instagram";
 import TwitterIcon from "@material-ui/icons/Twitter";
 import LinkedInIcon from "@material-ui/icons/LinkedIn";
-import { useSelector } from "react-redux"
+import { useSelector } from "react-redux";
 
 function Footer() {
-  const isLanguageEnglish = useSelector((state) => state.language.isEnglish)
+  const isLanguageEnglish = useSelector((state) => state.language.isEnglish);
   return (
     <footer className={styles.footer}>
       <div className={styles["footer-container"]}>
@@ -16,52 +16,58 @@ function Footer() {
             <h4>{isLanguageEnglish ? "About" : "O nas"}</h4>
             <ul>
               <li>
-                <a href="/">{isLanguageEnglish ? "Company" : "Firma"}</a>
+                <a href="/">{isLanguageEnglish ? "Company" : "Công ty"}</a>
               </li>
               <li>
-                <a href="/">{isLanguageEnglish ? "Service" : "Usługi"}</a>
+                <a href="/">{isLanguageEnglish ? "Service" : "Dịch vụ"}</a>
               </li>
               <li>
                 <a href="/">Blog</a>
               </li>
               <li>
-                <a href="/">{isLanguageEnglish ? "Contact" : "Kontakt"}</a>
+                <a href="/">{isLanguageEnglish ? "Contact" : "Liên hệ"}</a>
               </li>
             </ul>
           </div>
           <div className={styles["footer-column"]}>
-            <h4>{isLanguageEnglish ? "Application" : "Aplikacja"}</h4>
+            <h4>{isLanguageEnglish ? "Application" : "Ứng dụng"}</h4>
             <ul>
               <li>
-                <a href="/">{isLanguageEnglish ? "At home" : "W domu"}</a>
+                <a href="/">{isLanguageEnglish ? "At home" : "Tại nhà"}</a>
               </li>
               <li>
-                <a href="/">{isLanguageEnglish ? "At school" : "W szkole"}</a>
+                <a href="/">{isLanguageEnglish ? "At school" : "Tại trường"}</a>
               </li>
-              <li>
-                <a href="/">{isLanguageEnglish ? "At work" : "W pracy"}</a>
-              </li>
-            </ul>
-          </div>
-          <div className={styles["footer-column"]}>
-            <h4>{isLanguageEnglish ? "Terms and conditions" : "Regulamin"}</h4>
-            <ul>
               <li>
                 <a href="/">
-                  {isLanguageEnglish ? "Terms and conditions" : "Regulamin"}
+                  {isLanguageEnglish ? "At work" : "Tại nơi làm việc"}
                 </a>
               </li>
+            </ul>
+          </div>
+          <div className={styles["footer-column"]}>
+            <h4>
+              {isLanguageEnglish
+                ? "Terms and conditions"
+                : "Điều khoản và điều kiện"}
+            </h4>
+            <ul>
               <li>
                 <a href="/">
                   {isLanguageEnglish
-                    ? "Privacy Policy"
-                    : "Polityka prywatności"}
+                    ? "Terms and conditions"
+                    : "Điều khoản và điều kiện"}
+                </a>
+              </li>
+              <li>
+                <a href="/">
+                  {isLanguageEnglish ? "Privacy Policy" : "Chính sách bảo mật"}
                 </a>
               </li>
             </ul>
           </div>
           <div className={styles["footer-column"]}>
-            <h4>{isLanguageEnglish ? "Follow us" : "Śledź nas"}</h4>
+            <h4>{isLanguageEnglish ? "Follow us" : "Theo dõi chúng tôi"}</h4>
             <div className={styles["footer-social-links"]}>
               <a href="/">
                 <FacebookIcon />
@@ -80,7 +86,7 @@ function Footer() {
         </div>
       </div>
     </footer>
-  )
+  );
 }
 
 export default Footer;
