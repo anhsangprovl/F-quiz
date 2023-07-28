@@ -40,7 +40,7 @@ main .page {
 .first-section {
   margin-top: 3.6rem;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(20rem,40rem));
+  grid-template-columns: repeat(auto-fit, minmax(20rem, 43rem));
   grid-gap: 1rem;
   justify-content: center;
 }
@@ -362,8 +362,42 @@ main .page {
   text-align: center;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 550px) {
   main {
     overflow: hidden;
+  }
+  .banner {
+    flex-flow: column;
+    flex-direction: column-reverse;
+  }
+  .banner-title {
+    line-height: 24px;
+    padding: 10px 16px;
+  }
+  .first-section {
+    /* grid-template-columns: min-content; */
+    grid-template-columns: repeat(auto-fit, minmax(20rem, 28rem));
+  }
+
+  .image {
+    clip-path: circle(62% at 50% 0);
+    width: 28rem;
+    object-fit: fill;
+  }
+  .banner-img::before {
+    clip-path: circle(66% at 50% 0);
+  }
+  .banner-img {
+    width: 28rem;
+  }
+}
+
+@media (max-width: 992px) {
+  .card {
+    width: auto;
+  }
+  .card:nth-of-type(2) {
+    top: 0;
+    width: auto;
   }
 }

@@ -172,7 +172,9 @@ function Home() {
                     src={icon2}
                     style={{ width: "36px", marginRight: "10px" }}
                   />
-                  {isLanguageEnglish ? "F-quiz! at work" : "F-quiz! ở nơi làm việc"}
+                  {isLanguageEnglish
+                    ? "F-quiz! at work"
+                    : "F-quiz! ở nơi làm việc"}
                 </h2>
                 <p className={styles["info-description"]}>
                   {isLanguageEnglish
@@ -245,7 +247,7 @@ function Home() {
                   </div>
                 </div>
                 <div className={styles["card-body"]}>
-                  <h1>{isLanguageEnglish ? "Create" : "Twórz"}</h1>
+                  <h1>{isLanguageEnglish ? "Create" : "Tạo"}</h1>
                   <p>
                     {isLanguageEnglish
                       ? "It only takes minutes to create a learning game or trivia quiz on any topic, in any language."
@@ -307,12 +309,12 @@ function Home() {
             <div className={styles["card-button"]}>
               {isLanguageEnglish
                 ? "Play Quizzly to see how it works."
-                : "Zagraj w Quizzly, aby zobaczyć, jak to działa."}{" "}
+                : "Tham gia để xem nó hoạt động như thế nào."}{" "}
               &nbsp;
               <a href="/">
                 {isLanguageEnglish
                   ? "Explore our public quizes"
-                  : "Przeglądaj publiczne quizy"}
+                  : "Khám phá các câu hỏi của chúng tôi"}
               </a>
             </div>
           </section>
